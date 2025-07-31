@@ -3,6 +3,7 @@ package com.egorpoprotskiy.taskmanager.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//1
 //Корректно указывает Room, что это сущность базы данных и как назвать таблицу.
 @Entity(tableName = "tasks")
 data class Task (
