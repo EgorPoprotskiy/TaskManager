@@ -4,7 +4,7 @@ import android.app.Application
 import com.egorpoprotskiy.taskmanager.di.AppContainer
 import com.egorpoprotskiy.taskmanager.di.DefaultAppContainer
 
-//6 Создание TaskApplication (Application Class).
+//7 Создание TaskApplication (Application Class).
 //Создается в корневом пакете.
 /**
 класс Application является базовым классом для поддержания глобального состояния приложения.
