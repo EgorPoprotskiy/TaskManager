@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 /*
 ViewModel — отвечает за предоставление данных для UI и за управление изменениями конфигурации
  */
-class TaskViewModel(val taskRepository: TaskRepository): ViewModel() {
+open class TaskViewModel(val taskRepository: TaskRepository): ViewModel() {
     // Свойство для получения всех задач в виде StateFlow
     val taskUiState: StateFlow<TaskUiState> = taskRepository.getAllTasks()
         .map { tasks -> TaskUiState(tasks) }

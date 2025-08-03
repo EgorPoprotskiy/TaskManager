@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TaskManager</string>
+    <string name="application_name">Менеджер задач</string>
+    <string name="add_new_task">Нет задач. Добавьте новую задачу!</string>
 </resources>

@@ -10,7 +10,7 @@ import com.egorpoprotskiy.taskmanager.TaskApplication
 //8 Создание AppViewModelProvider (ViewModel Factory)
 
 object AppViewModelProvider {
-    val factory = viewModelFactory {
+    val Factory = viewModelFactory {
         initializer {
             // Получаем TaskRepository из AppContainer нашего TaskApplication
             TaskViewModel(
