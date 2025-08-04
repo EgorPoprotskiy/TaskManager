@@ -47,6 +47,7 @@ import kotlinx.coroutines.flow.flowOf
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListScreen(
+    navigateToTaskEntry: () -> Unit, // Лямбда для навигации к экрану добавления задачи
     taskViewModel: TaskViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     // Собираем состояние UI из ViewModel.
@@ -65,7 +66,8 @@ fun TaskListScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { Log.d("TaskListScreen", "FAB clicked!") },
+                //Вызываем переданную лямбду для навигации
+                onClick = navigateToTaskEntry,
                 modifier = Modifier.padding(dimensionResource(R.dimen.padding_large)),
                 shape = MaterialTheme.shapes.medium
             ) {
@@ -184,7 +186,9 @@ fun TaskItemPreview() {
 @Composable
 fun TaskListScreenPreview() {
     TaskManagerTheme {
-        TaskListScreen(taskViewModel = previewTaskViewModel) // Использование ViewModel для предпросмотра
+        TaskListScreen(
+            navigateToTaskEntry = {},
+            taskViewModel = previewTaskViewModel) // Использование ViewModel для предпросмотра
     }
 }
 
