@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // 11 Создаем навигацию.
                     val navController = rememberNavController() // Получаем NavController
 
                     NavHost(
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         // Composable для экрана Home (список задач)
                         composable(TaskDestination.HOME_ROUTE) {
                             TaskListScreen(
-                                // Передаем лямбду для навигации к экрану добавления задачи
+                                // Передаем лямбду для навигации к экрану добавления задачи(создается в конструкторе класса TaskListScreen)
                                 navigateToTaskEntry = {
                                     navController.navigate(TaskDestination.TASK_ENTRY_ROUTE)
                                 }
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         // Composable для экрана добавления задачи
                         composable(TaskDestination.TASK_ENTRY_ROUTE) {
                             TaskEntryScreen(
-                                // Передаем лямбду для возврата на предыдущий экран
+                                // Передаем лямбду для возврата на предыдущий экран(создается в конструкторе класса TaskEntryScreen)
                                 navigateBack = {
                                     navController.popBackStack()
                                 }

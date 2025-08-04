@@ -12,7 +12,7 @@ data class Task (
     //Чтобы Room автоматически генерировал значения для первичного ключа, используй параметр autoGenerate = true.
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
-    val title: String,
-    val description: String?,
+    val title: String = "",
+    val description: String? = "",
     val isCompleted: Boolean = false
 )
