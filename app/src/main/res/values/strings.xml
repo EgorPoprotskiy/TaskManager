@@ -3,4 +3,5 @@
     <string name="application_name">Менеджер задач</string>
     <string name="no_new_task">Нет задач. Добавьте новую задачу!</string>
     <string name="add_new_task">Новая задача</string>
+    <string name="back_button">Назад</string>
 </resources>
