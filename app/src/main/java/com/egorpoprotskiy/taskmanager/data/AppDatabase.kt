@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 //3 Создание БД.
 
 //абстрактный класс, который представляет базу данных Room.
-@Database(entities = [Task::class], version = 1, exportSchema = false)
+@Database(entities = [Task::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun taskDao(): TaskDao
     //Это гарантирует, что у тебя будет только один экземпляр базы данных во всем приложении.
@@ -27,6 +27,7 @@ abstract class AppDatabase: RoomDatabase() {
                     "task_manager_database"
                 )
 //                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
                 /*
                 Это самое важное изменение. После того как база данных создана внутри synchronized блока,

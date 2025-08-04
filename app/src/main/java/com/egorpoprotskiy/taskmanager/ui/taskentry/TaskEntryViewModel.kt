@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//12 Создание ViewModel для экрана ввода задачи.
 class TaskEntryViewModel(val taskRepository: TaskRepository): ViewModel() {
     private val _taskUiState = MutableStateFlow(Task())
     val taskUiState: StateFlow<Task> = _taskUiState.asStateFlow()
