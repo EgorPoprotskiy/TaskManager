@@ -1,4 +1,4 @@
-package com.egorpoprotskiy.taskmanager.home
+package com.egorpoprotskiy.taskmanager.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

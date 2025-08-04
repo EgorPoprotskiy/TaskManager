@@ -1,7 +1,6 @@
-package com.egorpoprotskiy.taskmanager.home
+package com.egorpoprotskiy.taskmanager.ui.home
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory

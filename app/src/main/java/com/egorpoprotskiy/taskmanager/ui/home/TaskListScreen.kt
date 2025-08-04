@@ -1,4 +1,4 @@
-package com.egorpoprotskiy.taskmanager.home
+package com.egorpoprotskiy.taskmanager.ui.home
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -11,20 +11,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,6 +62,18 @@ fun TaskListScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { Log.d("TaskListScreen", "FAB clicked!") },
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_large)),
+                shape = MaterialTheme.shapes.medium
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = stringResource(R.string.add_new_task)
+                )
+            }
         }
     ) { paddingValues -> // paddingValues содержит отступы от TopAppBar
         Column(
@@ -68,7 +84,7 @@ fun TaskListScreen(
             if (taskUiState.taskList.isEmpty()) {
                 // Отображаем сообщение, если список задач пуст
                 Text(
-                    text = stringResource(R.string.add_new_task),
+                    text = stringResource(R.string.no_new_task),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp)
                 )
