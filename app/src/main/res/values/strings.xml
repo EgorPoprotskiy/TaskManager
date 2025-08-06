@@ -8,4 +8,5 @@
     <string name="add_placeholder">введите текст</string>
     <string name="add_description_task">Описание</string>
     <string name="save_task">сохранить</string>
+    <string name="delete_task">удалить</string>
 </resources>

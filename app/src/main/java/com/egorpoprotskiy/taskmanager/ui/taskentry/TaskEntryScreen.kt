@@ -1,6 +1,5 @@
 package com.egorpoprotskiy.taskmanager.ui.taskentry
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.util.copy
 import com.egorpoprotskiy.taskmanager.R
 import com.egorpoprotskiy.taskmanager.ui.home.AppViewModelProvider
 
