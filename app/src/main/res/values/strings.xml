@@ -9,4 +9,8 @@
     <string name="add_description_task">Описание</string>
     <string name="save_task">сохранить</string>
     <string name="delete_task">удалить</string>
+    <string name="delete_confirmation_title">Подтверждение удаления</string>
+    <string name="delete_confirmation_message">Вы уверены, что хотите удалить задачу "%1$s"?</string>
+    <string name="delete_button">Удалить</string>
+    <string name="cancel_button">Отмена</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,9 +26,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -56,6 +61,10 @@ fun TaskListScreen(
     // collectAsStateWithLifecycle более предпочтителен, так как он собирает Flow только
     // когда UI находится в активном состоянии (STARTED, RESUMED).
     val taskUiState by taskViewModel.taskUiState.collectAsStateWithLifecycle()
+
+    //14 Для диалогового окна удаления.
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var taskToDelete by remember { mutableStateOf<Task?>(null)}
     Scaffold(
         topBar = {
             TopAppBar(
@@ -114,13 +123,60 @@ fun TaskListScreen(
                                 taskViewModel.updateTask(taskToUpdate.copy(isCompleted = !taskToUpdate.isCompleted))
                             },
                             onDeleteTask = { deleteToTask ->
-                                taskViewModel.deleteTask(deleteToTask)
+                                showDeleteDialog = true
+                                taskToDelete = task
+//                                taskViewModel.deleteTask(deleteToTask)
                             }
                         )
                     }
                 }
             }
         }
+    }
+    //14 Диалоговое окно
+    if (showDeleteDialog && taskToDelete != null) {
+        AlertDialog(
+            onDismissRequest = {
+                // Закрываем диалог при нажатии вне его или кнопки "Назад"
+                showDeleteDialog = false
+                taskToDelete = null
+            },
+            //заголовок диалогового окна
+            title = {
+                Text(stringResource(R.string.delete_confirmation_title))
+            },
+            //текст диалогового окна
+            text = {
+                Text(stringResource(R.string.delete_confirmation_message, taskToDelete!!.title))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        // Подтверждаем удаление и закрываем диалог
+                        taskViewModel.deleteTask(taskToDelete!!)
+                        showDeleteDialog = false
+                        taskToDelete = null
+                    }
+                ) {
+                    Text(
+                        stringResource(R.string.delete_button)
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        // Отменяем удаление и закрываем диалог
+                        showDeleteDialog = false
+                        taskToDelete = null
+                    }
+                ) {
+                    Text(
+                        stringResource(R.string.cancel_button)
+                    )
+                }
+            }
+        )
     }
 }
 
