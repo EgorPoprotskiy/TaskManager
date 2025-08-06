@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -21,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -110,6 +112,9 @@ fun TaskListScreen(
                             onToggleComplete = { taskToUpdate ->
                                 // Обновляем статус задачи через ViewModel
                                 taskViewModel.updateTask(taskToUpdate.copy(isCompleted = !taskToUpdate.isCompleted))
+                            },
+                            onDeleteTask = { deleteToTask ->
+                                taskViewModel.deleteTask(deleteToTask)
                             }
                         )
                     }
@@ -124,7 +129,9 @@ fun TaskItem(
     modifier: Modifier = Modifier,
     task: Task,
     onTaskClick: (Task) -> Unit,
-    onToggleComplete: (Task) -> Unit
+    onToggleComplete: (Task) -> Unit,
+    //13 Добавление удаления элемента
+    onDeleteTask: (Task) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -147,6 +154,12 @@ fun TaskItem(
             //Распределяет элементы так, чтобы они занимали максимально возможное пространство, при этом Text будет слева, а Checkbox — справа.
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            Checkbox(
+                //Состояние чекбокса напрямую привязано к свойству isCompleted объекта task.
+                checked = task.isCompleted,
+                //Когда пользователь нажимает на чекбокс, вызывается лямбда onToggleComplete.
+                onCheckedChange = { onToggleComplete(task) }
+            )
             Text(
                 text = task.title,
                 style = MaterialTheme.typography.bodyLarge.copy(
@@ -155,12 +168,14 @@ fun TaskItem(
                 //Позволяет тексту занимать всю доступную горизонтальную ширину, "выталкивая" чекбокс вправо.
                 modifier = Modifier.weight(1f)
             )
-            Checkbox(
-                //Состояние чекбокса напрямую привязано к свойству isCompleted объекта task.
-                checked = task.isCompleted,
-                //Когда пользователь нажимает на чекбокс, вызывается лямбда onToggleComplete.
-                onCheckedChange = { onToggleComplete(task) }
-            )
+            IconButton(
+                onClick = { onDeleteTask(task) }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = stringResource(R.string.delete_task)
+                )
+            }
         }
     }
 }
@@ -177,7 +192,8 @@ fun TaskItemPreview() {
     TaskItem(
         task = task,
         onTaskClick = {},
-        onToggleComplete = {}
+        onToggleComplete = {},
+        onDeleteTask = {}
     )
 }
 
