@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.egorpoprotskiy.taskmanager.navigation.TaskDestination
 import com.egorpoprotskiy.taskmanager.ui.home.TaskListScreen
+import com.egorpoprotskiy.taskmanager.ui.taskdetail.TaskDetailScreen
 import com.egorpoprotskiy.taskmanager.ui.taskentry.TaskEntryScreen
 import com.egorpoprotskiy.taskmanager.ui.theme.TaskManagerTheme
 
@@ -40,6 +44,10 @@ class MainActivity : ComponentActivity() {
                                 // Передаем лямбду для навигации к экрану добавления задачи(создается в конструкторе класса TaskListScreen)
                                 navigateToTaskEntry = {
                                     navController.navigate(TaskDestination.TASK_ENTRY_ROUTE)
+                                },
+                                // 14 Передаем лямбду для навигации к экрану деталей задачи(создается в конструкторе класса TaskListScreen)
+                                navigateToTaskDetail = { taskId ->
+                                    navController.navigate("${TaskDestination.TASK_DETAIL_ROUTE}/${taskId}")
                                 }
                             )
                         }
@@ -51,6 +59,25 @@ class MainActivity : ComponentActivity() {
                                     navController.popBackStack()
                                 }
                             )
+                        }
+                        // 14 Composable для экрана деталей.
+                        composable(
+                            "${TaskDestination.TASK_DETAIL_ROUTE}/{taskId}",
+                            arguments = listOf(navArgument("taskId") {
+                                type = NavType.LongType
+                            })
+                            ) { backStackEntry ->
+                            // Получаем taskId из аргументов
+                            val taskId = backStackEntry.arguments?.getLong("taskId")
+                            // Проверяем, что taskId не null, прежде чем передавать его
+                            if (taskId != null) {
+                                TaskDetailScreen(
+                                    taskId = taskId,
+                                    navigateBack = {
+                                        navController.popBackStack()
+                                    }
+                                )
+                            }
                         }
                     }
                 }

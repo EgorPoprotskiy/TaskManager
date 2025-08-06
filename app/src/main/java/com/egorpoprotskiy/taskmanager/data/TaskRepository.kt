@@ -18,4 +18,6 @@ interface TaskRepository {
     suspend fun deleteTask(task: Task)
     //Функции, которые возвращают Flow, обычно не требуют ключевого слова suspend. Flow сам по себе является асинхронным потоком данных.
     fun getAllTasks(): Flow<List<Task>>
+    //Функция получения одного элемента
+    fun getTaskById(id: Long): Flow<Task>
 }

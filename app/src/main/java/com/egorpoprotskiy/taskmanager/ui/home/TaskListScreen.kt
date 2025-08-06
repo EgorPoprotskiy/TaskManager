@@ -55,7 +55,8 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun TaskListScreen(
     navigateToTaskEntry: () -> Unit, // Лямбда для навигации к экрану добавления задачи
-    taskViewModel: TaskViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    taskViewModel: TaskViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navigateToTaskDetail: (Long) -> Unit
 ) {
     // Собираем состояние UI из ViewModel.
     // collectAsStateWithLifecycle более предпочтителен, так как он собирает Flow только
@@ -114,9 +115,10 @@ fun TaskListScreen(
                     items(items = taskUiState.taskList, key = { it.id }) { task ->
                         TaskItem(
                             task = task,
+                            // 14 Переход на экран деталей.
                             onTaskClick = { clickedTask ->
                                 Log.d("TaskListScreen", "Нажата задача: ${clickedTask.title}")
-                                // TODO: Добавить логику навигации к деталям задачи
+                                navigateToTaskDetail(task.id)
                             },
                             onToggleComplete = { taskToUpdate ->
                                 // Обновляем статус задачи через ViewModel
@@ -260,7 +262,9 @@ fun TaskListScreenPreview() {
     TaskManagerTheme {
         TaskListScreen(
             navigateToTaskEntry = {},
-            taskViewModel = previewTaskViewModel) // Использование ViewModel для предпросмотра
+            taskViewModel = previewTaskViewModel, // Использование ViewModel для предпросмотра
+            navigateToTaskDetail = {}
+        )
     }
 }
 
@@ -277,5 +281,10 @@ val previewTaskViewModel = object : TaskViewModel(
                 Task(3, "Позвонить другу", "",false)
             )
         )
+
+        override fun getTaskById(id: Long): Flow<Task> {
+            TODO()
+        }
+
     }
 ) {}

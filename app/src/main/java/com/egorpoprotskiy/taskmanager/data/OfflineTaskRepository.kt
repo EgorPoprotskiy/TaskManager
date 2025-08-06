@@ -15,6 +15,10 @@ class OfflineTaskRepository(private val taskDao: TaskDao): TaskRepository {
         taskDao.delete(task)
     }
     override fun getAllTasks(): Flow<List<Task>> {
-        return taskDao.getTasks()
+        return taskDao.getAllTasks()
+    }
+
+    override fun getTaskById(taskId: Long): Flow<Task> {
+        return taskDao.getTaskById(taskId)
     }
 }
