@@ -1,10 +1,14 @@
 package com.egorpoprotskiy.taskmanager.ui.home
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.egorpoprotskiy.taskmanager.TaskApplication
+import com.egorpoprotskiy.taskmanager.data.Task
+import com.egorpoprotskiy.taskmanager.ui.taskdetail.TaskDetailScreen
+import com.egorpoprotskiy.taskmanager.ui.taskdetail.TaskDetailViewModel
 import com.egorpoprotskiy.taskmanager.ui.taskentry.TaskEntryViewModel
 
 //8 Создание AppViewModelProvider (ViewModel Factory)
@@ -23,15 +27,16 @@ object AppViewModelProvider {
                 taskApplication().container.taskRepository
             )
         }
-
-        // Если появятся другие ViewModel, мы добавим их initializer здесь:
-        // initializer {
-        //     AnotherViewModel(
-        //         this.createSavedStateHandle(),
-        //         taskApplication().container.anotherRepository
-        //     )
-        // }
+        initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            val taskId = savedStateHandle.get<Long>(TaskDetailScreen.TASK_ID_ARG) ?: 0L
+            TaskDetailViewModel(
+                taskApplication().container.taskRepository,
+                taskId = taskId
+            )
+        }
     }
+
 }
 
 fun CreationExtras.taskApplication(): TaskApplication =

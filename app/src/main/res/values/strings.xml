@@ -13,4 +13,7 @@
     <string name="delete_confirmation_message">Вы уверены, что хотите удалить задачу "%1$s"?</string>
     <string name="delete_button">Удалить</string>
     <string name="cancel_button">Отмена</string>
+    <string name="detail_task">Детали задачи</string>
+    <string name="edit_task">Редактировать задачу</string>
+
 </resources>

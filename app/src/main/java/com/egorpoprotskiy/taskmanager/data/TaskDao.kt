@@ -23,5 +23,8 @@ interface TaskDao {
     suspend fun delete(task: Task)
     @Query("SELECT * FROM tasks")
     //Эта функция должна возвращать Flow<List<Task>>, чтобы UI мог реагировать на изменения в базе данных в реальном времени.
-    fun getTasks(): Flow<List<Task>>
+    fun getAllTasks(): Flow<List<Task>>
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    //Функция получения одного элемента
+    fun getTaskById(id: Long): Flow<Task>
 }
