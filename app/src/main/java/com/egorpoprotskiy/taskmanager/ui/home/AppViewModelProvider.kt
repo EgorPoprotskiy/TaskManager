@@ -9,6 +9,7 @@ import com.egorpoprotskiy.taskmanager.TaskApplication
 import com.egorpoprotskiy.taskmanager.data.Task
 import com.egorpoprotskiy.taskmanager.ui.taskdetail.TaskDetailScreen
 import com.egorpoprotskiy.taskmanager.ui.taskdetail.TaskDetailViewModel
+import com.egorpoprotskiy.taskmanager.ui.taskentry.TaskEntryScreen
 import com.egorpoprotskiy.taskmanager.ui.taskentry.TaskEntryViewModel
 
 //8 Создание AppViewModelProvider (ViewModel Factory)
@@ -23,8 +24,11 @@ object AppViewModelProvider {
         }
         // INITIALIZER ДЛЯ TaskEntryViewModel
         initializer {
+            val savedStateHandle = this.createSavedStateHandle()
+            val taskId = savedStateHandle.get<Long?>(TaskEntryScreen.TASK_ID_ARG)
             TaskEntryViewModel(
-                taskApplication().container.taskRepository
+                taskApplication().container.taskRepository,
+                taskId = taskId
             )
         }
         initializer {
