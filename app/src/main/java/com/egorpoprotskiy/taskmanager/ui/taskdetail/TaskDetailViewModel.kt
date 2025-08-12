@@ -1,6 +1,5 @@
 package com.egorpoprotskiy.taskmanager.ui.taskdetail
 
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.egorpoprotskiy.taskmanager.data.Task
@@ -22,6 +21,12 @@ class TaskDetailViewModel (
             taskRepository.getTaskById(taskId).collect { task ->
             _taskUiState.value = task ?: Task()
             }
+        }
+    }
+    
+    fun deleteTask() {
+        viewModelScope.launch { 
+            taskRepository.deleteTask(taskUiState.value)
         }
     }
 }
