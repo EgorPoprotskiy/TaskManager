@@ -26,5 +26,5 @@ interface TaskDao {
     fun getAllTasks(): Flow<List<Task>>
     @Query("SELECT * FROM tasks WHERE id = :id")
     //Функция получения одного элемента
-    fun getTaskById(id: Long): Flow<Task>
+    fun getTaskById(id: Long): Flow<Task?>
 }
