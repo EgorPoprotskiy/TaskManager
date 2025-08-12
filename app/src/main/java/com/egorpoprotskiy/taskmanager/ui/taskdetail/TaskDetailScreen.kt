@@ -49,6 +49,7 @@ fun TaskDetailScreen(
     taskId: Long,
     navigateBack: () -> Unit,
     taskDetailViewModel: TaskDetailViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navigateToEditTask: (Long) -> Unit
 ) {
     val taskUiState by taskDetailViewModel.taskUiState.collectAsStateWithLifecycle()
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -79,10 +80,9 @@ fun TaskDetailScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 FloatingActionButton(
-//                    onClick = { Log.d("TaskDetailScreen", "Нажата кнопка удаления задачи")},
                     onClick = {
+                        Log.d("TaskDetailScreen", "Нажата кнопка удаления задачи")
                         showDeleteDialog = true
-//                        navigateBack()
                     },
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_large)),
                     shape = MaterialTheme.shapes.medium
@@ -93,7 +93,10 @@ fun TaskDetailScreen(
                     )
                 }
                 FloatingActionButton(
-                    onClick = { Log.d("TaskDetailScreen", "Нажата кнопка редактирования задачи")},
+                    onClick = {
+                        Log.d("TaskDetailScreen", "Нажата кнопка редактирования задачи")
+                        navigateToEditTask(taskUiState.id)
+                    },
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_large)),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -167,7 +170,8 @@ fun TaskDetailScreenPreview() {
     MaterialTheme {
         TaskDetailScreen(
             taskId = 1L,
-            navigateBack = {}
+            navigateBack = {},
+            navigateToEditTask = {}
         )
     }
 }

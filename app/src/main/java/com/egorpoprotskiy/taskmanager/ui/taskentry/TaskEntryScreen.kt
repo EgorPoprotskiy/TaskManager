@@ -33,12 +33,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.egorpoprotskiy.taskmanager.R
 import com.egorpoprotskiy.taskmanager.ui.home.AppViewModelProvider
 
+
+object TaskEntryScreen {
+    const val TASK_ID_ARG = "taskId"
+}
 //10 Создание экрана ввода новой задачи.
 //@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskEntryScreen(
     navigateBack: () -> Unit,
+    taskId: Long,
     taskEntryViewModel: TaskEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     //Для доступа к конкретным значениям(titel и description) ОБЯЗАТЕЛЬНО использовать "by"
@@ -127,7 +132,8 @@ fun TaskEntryScreen(
 fun TaskEntryScreePreview() {
     MaterialTheme {
         TaskEntryScreen(
-            navigateBack = {}
+            navigateBack = {},
+            taskId = 0L
         )
     }
 }
